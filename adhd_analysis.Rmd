@@ -2,7 +2,7 @@
 title: "analysis"
 output: html_document
 ---
-
+## Loading the data, train and test sets
 ```{r}
 adhd = read.csv("C:/Users/yagmu/Desktop/Auburn/Research/project/datasetADHD/train_data.csv")
 adhd = t(adhd)
@@ -20,7 +20,7 @@ adhd[adhd == "ADHD-C" | adhd == "ADHD-H" | adhd == "ADHD-I"]=1
 predictors = as.data.frame(adhd[,-1])
 y = as.factor(adhd[,1])
 
-set.seed(2794) 
+set.seed(2705) 
 ind = sample(1:dim(predictors)[1],dim(predictors)[1]*0.2)  
 y_test = y[ind]
 y_train = y[-ind]
@@ -29,10 +29,13 @@ x_train = predictors[-ind,]
 
 ```
 
-
+## Loading the results of swag with logistic regression
 ```{r message=FALSE, warning=FALSE}
 load("C:/Users/yagmu/Desktop/padmini/ADHD_package.Rda")
+```
 
+## Post-processing
+```{r}
 min_error = min(train_swag_svml$cv_alpha)
 
 
@@ -92,63 +95,74 @@ selected_var = sort(selected_var)
 #colnames(x_train)[selected_var]
 #table(models)
 
+freq = table(models)
+variable = colnames(x_train)[selected_var]
+
+freq_table = cbind(variable,freq)
+rownames(freq_table) = c(1:nrow(freq_table))
+freq_table = as.data.frame(freq_table)
+freq_table$freq = as.numeric(freq_table$freq)
+
+#freq_table
 ```
 
 |-|Variable      | Frequency| 
 |-| -------------- | ------- |
-| 1| 13,11      | 51|
-| 2|  27,21      | 51|
-| 3|    40,19  | 3|
-| 4|   47,9  | 5|
-| 5|   47,21| 258|
-| 6|  47,27| 1|
-| 7|  49,9| 3|
-| 8|   49,47| 21|
-| 9|  54,21      | 381|
-| 10|  72,11    | 363|
-| 11|  72,68  | 381|
-| 12| 74,21  | 43|
-| 13|  74,55| 63|
-|14|82,13| 12|
-|15|85,13| 8|
-|16|101,85| 381|
-|17| 104,34      | 377|
-|18| 108,27      | 207|
-| 19|108,47  | 73|
-| 20|108,91  | 201|
-| 21|112,67| 7|
-|22| 114,6| 23|
-|23| 114,28| 172|
-|24| 114,40| 281|
-|25| 116,21      | 45|
-| 26| 116,47      | 23|
-| 27| 116,55  | 84|
-| 28| 116,89  | 381|
-|29|  124,23| 28|
-|30| 124,99| 284|
-|31| 126,2| 325|
-|32| 126,124| 18|
-| 33| 129,40      | 25|
-|34|  132,85      | 1|
-|35| 134,23  | 46|
-|36| 134,99  | 66|
-|37|  135,114| 1|
-|38| 136,132| 1|
-|39| 138,23| 20|
-|40| 138,107| 9|
-|41| 146,89      | 235|
-|42|  148,71      | 9|
-|43|  150,114  | 363|
-|44|  151,46  | 55|
-|45|  151,147| 377|
-|46| 162,73| 267|
-|47| 169,49| 34|
-|48| 173,9| 149|
-|49|  173,47      | 13|
-|50|  184,58      | 37|
-|51|  189,21  | 1|
-|52|  189,65  | 7|
-|53|  189,173| 37|
+| 1| 13.11.      | 51|
+| 2|  27.21.      | 51|
+| 3|    40.19.  | 3|
+| 4|   47.9.  | 5|
+| 5|   47.21.| 258|
+| 6|  47.27.| 1|
+| 7|  49.9.| 3|
+| 8|   49.47.| 21|
+| 9|  54.21.      | 381|
+| 10|  72.11.    | 363|
+| 11|  72.68.  | 381|
+| 12| 74.21.  | 43|
+| 13|  74.55.| 63|
+|14|82.13.| 12|
+|15|85.13.| 8|
+|16|101.85.| 381|
+|17| 104.34.      | 377|
+|18| 108.27.     | 207|
+| 19|108.47.  | 73|
+| 20|108.91.  | 201|
+| 21|112.67.| 7|
+|22| 114.6.| 23|
+|23| 114.28.| 172|
+|24| 114.40.| 281|
+|25| 116.21.      | 45|
+| 26| 116.47.      | 23|
+| 27| 116.55.  | 84|
+| 28| 116.89.  | 381|
+|29|  124.23.| 28|
+|30| 124.99.| 284|
+|31| 126.2.| 325|
+|32| 126.124.| 18|
+| 33| 129.40.      | 25|
+|34|  132.85.      | 1|
+|35| 134.23.  | 46|
+|36| 134.99.  | 66|
+|37|  135.114.| 1|
+|38| 136.132.| 1|
+|39| 138.23.| 20|
+|40| 138.107.| 9|
+|41| 146.89.      | 235|
+|42|  148.71.      | 9|
+|43|  150.114.  | 363|
+|44|  151.46.  | 55|
+|45|  151.147.| 377|
+|46| 162.73.| 267|
+|47| 169.49.| 34|
+|48| 173.9.| 149|
+|49|  173.47.      | 13|
+|50|  184.58.      | 37|
+|51|  189.21.  | 1|
+|52|  189.65.  | 7|
+|53|  189.173.| 37|
+
+`models` matrix contains the models and 53 variables chosen after post-processing. There are 381 models of dimensions starting from 9 upto 20. freq_table shows the frequency of each feature selected. The most frequent features are `54.21.`, `72.68.`, `101.85.` and `116.89.`,  which are contained by every model. The most second frequent ones are `104.34.`, `151.147.` frequency 377.
 
 ```{r message=FALSE, warning=FALSE}
 require(plotrix)
@@ -161,6 +175,8 @@ u_vector <- sapply(train_swag_svml$CVs, function(x) summary(x)[6])
 
 plotCI(1:length(train_swag_svml$CVs), m_vector, ui=u_vector, li=l_vector, scol = "grey", col="red", pch = 16, main = "Ranges 10-fold CV Misclassification Errors",ylab = "Range CV Error",xlab = "Model Size")
 ```
+
+The plot shows the range of CV errors for each dimension. There is a clear decay in CV errors as the dimension increases.
 
 ```{r}
 betas = matrix(NA, ncol=ncol(models), nrow=nrow(models))
@@ -177,6 +193,58 @@ sign_betas = list()
 for(i in 1:length(selected_var)){
   sign_betas[[i]] = betas[which(models==selected_var[i],arr.ind = T)]
 }
+```
+
+`betas` matrix contains the coefficients of the features in each model. The effect of features can be found in the following table.
+
+|  Positive    | Negative| 
+| -------------- | ------- |
+|       |13.11. |
+|        | 27.21.|
+| |      | 40.19.|
+| |     | 47.9.|
+|   | 47.21.|
+|  47.27.| |
+|  | 49.9.|
+|    49.47.| |
+| |  54.21.      | 
+| |  72.11.    | 
+|  72.68.  | |
+| | 74.21.  | 
+||82.13.| 
+||85.13.| 
+|101.85.| |
+|| 104.34.      | 
+| 108.27.     | |
+| 108.47.  | |
+| 108.91.  | |
+| 112.67.| |
+|114.28.| |
+| 114.40.| |
+| 116.21.      | |
+| | 116.89.  | 
+|  124.23.| |
+|| 124.99.| 
+|| 126.2.| 
+|| 126.124.| 
+|  129.40.      | |
+|  132.85.      | |
+||  135.114.| 
+|| 136.132.| 
+|| 146.89.      | 
+|  148.71.      | |
+|  150.114.  | |
+|  151.46.  | |
+|  151.147.| |
+| 162.73.| |
+| 169.49.| |
+|| 173.9.|
+|  184.58.      | |
+||  189.21.  | 
+||  189.173.| 
+
+```{r}
+
 
 corr = matrix(NA, nrow = length(selected_var), ncol = length(selected_var))
 for(i in 1:length(selected_var)){
@@ -232,49 +300,50 @@ for(i in 1:ncol(adjacency_matrix)){
 graph = graph.adjacency(adjacency_matrix, mode = 'undirected')
 
 # colors of vertices 
-beta_sign = rep(NA,53)
-for(i in 1:length(beta_sign)){
-  if(sign_betas[[i]]>0){
-    beta_sign[i] = 1
-  }else{
-    beta_sign[i] = -1
-  }
-}
+#beta_sign = rep(NA,53)
+# 
+# for(i in 1:length(beta_sign)){
+#   if(sign_betas[[i]]>0){
+#     beta_sign[i] = 1
+#   }else{
+#     beta_sign[i] = -1
+#   }
+# }
 
-colrs = rep(NA, 53)
-for(i in 1:length(colrs)){
-  if(beta_sign[[i]]>0){
-    colrs[i] = "lightblue"
-  }else{
-    colrs[i] = "tomato"
-  }
-}
+# colrs = rep(NA, 53)
+# for(i in 1:length(colrs)){
+#   if(beta_sign[[i]]>0){
+#     colrs[i] = "lightblue"
+#   }else{
+#     colrs[i] = "tomato"
+#   }
+# }
 
 # size of vertices
- a = table(models)
-V(graph)$size = a*0.05
-
-V(graph)$label = c(1:53)
-
-# edge thickness
-upper_thick = upperTriangle(intensity, byrow = T)
-upper_thick = upper_thick[upper_thick!=0]
-E(graph)$width = upper_thick*0.01
+#  a = table(models)
+# V(graph)$size = a*0.05
+# 
+# V(graph)$label = c(1:53)
+# 
+# # edge thickness
+# upper_thick = upperTriangle(intensity, byrow = T)
+# upper_thick = upper_thick[upper_thick!=0]
+# E(graph)$width = upper_thick*0.01
 
 #edge colors
-colrs_edge = rep(NA, 1000)
-for(i in 1:length(colrs_edge)){
-  if(upper_thick[i]>0){
-    colrs_edge[i]="lightgreen"
-  }else{
-    colrs_edge[i]="lightpink"
-  }
-}
+# colrs_edge = rep(NA, 1000)
+# for(i in 1:length(colrs_edge)){
+#   if(upper_thick[i]>0){
+#     colrs_edge[i]="lightgreen"
+#   }else{
+#     colrs_edge[i]="lightpink"
+#   }
+# }
 
 
 #plotting the network
-plot(as.undirected(graph), vertex.color=colrs, vertex.label.size = V(graph)$size, vertex.label=V(graph)$label, edge.width = E(graph)$width, edge.color="grey", layout= layout_randomly)
-
+# plot(as.undirected(graph), vertex.color=colrs, vertex.label.size = V(graph)$size, vertex.label=V(graph)$label, edge.width = E(graph)$width, edge.color="grey", layout= layout_randomly)
+# 
 
 
 ```
