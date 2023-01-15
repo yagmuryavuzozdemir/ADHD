@@ -1,5 +1,5 @@
 ---
-title: "analysis"
+title: "ADHD - logistic regression"
 output: html_document
 ---
 ## Loading the data, train and test sets
@@ -103,7 +103,7 @@ rownames(freq_table) = c(1:nrow(freq_table))
 freq_table = as.data.frame(freq_table)
 freq_table$freq = as.numeric(freq_table$freq)
 
-#freq_table
+freq_table
 ```
 
 |-|Variable      | Frequency| 
@@ -178,7 +178,7 @@ plotCI(1:length(train_swag_svml$CVs), m_vector, ui=u_vector, li=l_vector, scol =
 
 The plot shows the range of CV errors for each dimension. There is a clear decay in CV errors as the dimension increases.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 betas = matrix(NA, ncol=ncol(models), nrow=nrow(models))
 for(i in 1:nrow(models)){
   ind_models = models[i,]
@@ -201,8 +201,8 @@ for(i in 1:length(selected_var)){
 | -------------- | ------- |
 |       |13.11. |
 |        | 27.21.|
-| |      | 40.19.|
-| |     | 47.9.|
+|     | 40.19.|
+|     | 47.9.|
 |   | 47.21.|
 |  47.27.| |
 |  | 49.9.|
@@ -243,7 +243,10 @@ for(i in 1:length(selected_var)){
 ||  189.21.  | 
 ||  189.173.| 
 
-```{r}
+`74.21.`, `74.55.`, `114.6.`, `114.40.`, `116.47.`, `116.55.`, `134.23.`, `134.99.`, `138.23.`, `138.107.`, `173.47.` and `189.65.` have both negative and positive effects on probability of having ADHD in different models.
+
+
+```{r message=FALSE, warning=FALSE}
 
 
 corr = matrix(NA, nrow = length(selected_var), ncol = length(selected_var))
@@ -254,9 +257,11 @@ for(i in 1:length(selected_var)){
 }
 colnames(corr) = colnames(x_train)[selected_var]
 rownames(corr) = colnames(x_train)[selected_var]
+```
 
+`corr` matrix shows the correlation between the features. The most positively correlated features are `114.6.` and `114.40.` with correlation 0.6400897. The most negatively correlated ones are `126.2.` and `134.23.` with correlation -0.27801636.
 
-
+```{r message=FALSE, warning=FALSE}
 A = matrix(0, nrow = ncol(models), ncol =ncol(models))
 intensity = matrix(0, nrow = length(selected_var), ncol = length(selected_var))
 b=0
@@ -278,7 +283,10 @@ for(i in 1:(length(selected_var)-1)){
 which(intensity==max(intensity),arr.ind = T)
 ```
 
-# Creating network
+`intensity` matrix shows the number of times that the features appear in the same model. The most connected pair of features are the most frequent ones. 
+
+
+## Creating network
 ```{r message=FALSE, warning=FALSE}
 #required packages
 library(igraph)
@@ -300,60 +308,45 @@ for(i in 1:ncol(adjacency_matrix)){
 graph = graph.adjacency(adjacency_matrix, mode = 'undirected')
 
 # colors of vertices 
-#beta_sign = rep(NA,53)
-# 
-# for(i in 1:length(beta_sign)){
-#   if(sign_betas[[i]]>0){
-#     beta_sign[i] = 1
-#   }else{
-#     beta_sign[i] = -1
-#   }
-# }
+beta_sign = rep(NA,53)
+ 
+ for(i in 1:length(beta_sign)){
+   if(all(sign_betas[[i]]>0)){
+     beta_sign[i] = 1
+   }else{
+     beta_sign[i] = -1
+   }
+ }
 
-# colrs = rep(NA, 53)
-# for(i in 1:length(colrs)){
-#   if(beta_sign[[i]]>0){
-#     colrs[i] = "lightblue"
-#   }else{
-#     colrs[i] = "tomato"
-#   }
-# }
+ colrs = rep(NA, 53)
+ for(i in 1:length(colrs)){
+   if(beta_sign[[i]]>0){
+     colrs[i] = "lightblue"
+   }else{
+     colrs[i] = "tomato"
+   }
+}
 
 # size of vertices
-#  a = table(models)
-# V(graph)$size = a*0.05
-# 
-# V(graph)$label = c(1:53)
-# 
-# # edge thickness
-# upper_thick = upperTriangle(intensity, byrow = T)
-# upper_thick = upper_thick[upper_thick!=0]
-# E(graph)$width = upper_thick*0.01
-
-#edge colors
-# colrs_edge = rep(NA, 1000)
-# for(i in 1:length(colrs_edge)){
-#   if(upper_thick[i]>0){
-#     colrs_edge[i]="lightgreen"
-#   }else{
-#     colrs_edge[i]="lightpink"
-#   }
-# }
+a = table(models)
+V(graph)$size = a*0.05
+ 
+V(graph)$label = c(1:53)
+ 
+# edge thickness
+upper_thick = upperTriangle(intensity, byrow = T)
+upper_thick = upper_thick[upper_thick!=0]
+E(graph)$width = upper_thick*0.01
 
 
 #plotting the network
-# plot(as.undirected(graph), vertex.color=colrs, vertex.label.size = V(graph)$size, vertex.label=V(graph)$label, edge.width = E(graph)$width, edge.color="grey", layout= layout_randomly)
-# 
+plot(as.undirected(graph), vertex.color=colrs, vertex.label.size = V(graph)$size, vertex.label=V(graph)$label, edge.width = E(graph)$width, edge.color="grey", layout= layout_randomly)
 
 
 ```
 
-#coloring the vertices according to pos/neg effect
-#V(graph)$name = colnames(x_train)[selected_var]
+The resulting network is shown in the figure above.
 
-#V(graph)$effect = beta_sign
-#V(graph)$color = colrs[V(graph)$effect]
+### Appendix
 
-
-
-hello
+The features in the frequency table are ordered in a way that they are given in the dataset.
