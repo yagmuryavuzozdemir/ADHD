@@ -1,0 +1,82 @@
+---
+title: "ADHD Data Analysis with CV Repeat=10"
+output: html_document
+date: '2022-11-16'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+#### Loading and Organizing the Data
+
+```{r}
+library(caret)
+library(glmnet)
+
+DATA <-  read.csv("train_data.csv")
+adhd0 <- t(DATA)
+adhd1 <- adhd0[-1, ]
+
+#naming the colnames
+colnames(adhd1) <- as.character(adhd1[1, ])
+X <- apply(adhd1[,-1],2, as.numeric)
+X <- data.frame(adhd1[ ,1],X)
+adhd2 <- X[-1, ]
+adhd3 <- as.matrix(adhd2)
+colnames(adhd3)[1] <- "GROUP"
+
+#defining control group=0  
+cat_v <- c()
+for (i in 1:dim(adhd3)[1]){
+  if(adhd3[ ,"GROUP"][i] == "Controls")
+  {
+    cat_v[i]<-"0"
+  }else{
+    cat_v[i]<-"1"
+  }
+}
+adhd3 <- data.frame(cat_v, adhd3)
+Z <- adhd3[ ,-2]
+Z <- apply(Z,2,as.numeric)
+r <- Z[ ,1]
+r <- as.vector(r)
+adhd <- Z[ ,-1]
+
+rm(list=c("adhd0", "adhd1", "adhd2", "adhd3"))
+logitControl  <- trainControl(method="repeatedcv",number = 10,repeats = 10)
+
+#training and testing data
+## % 80 of the sample size
+smp_size <- floor(0.8 * nrow(Z))
+set.seed(2794)
+train_ind <- sample(seq_len(nrow(Z)), size = smp_size)
+
+x_train <- Z[train_ind, ]
+y_train <- x_train[, 1]
+x_test <- Z[-train_ind, ]
+y_test <- x_test[ ,1]
+```
+
+#### Logistic-Lasso Regression
+
+Applying logistic-lasso regression on the data, we have the following results:
+
+```{r}
+cv.model <- cv.glmnet(x=x_train, y=y_train, family= "binomial", alpha=1 )
+plot(cv.model)
+l.min <- cv.model$lambda.min
+
+lasso_logistic.model <- glmnet(x_train, y_train, "binomial", alpha=1, lambda = l.min)
+
+B <- lasso_logistic.model$beta
+nnzero(B, na.counted = NA)
+nnzero_indices <- which(B != 0, arr.ind = T)
+nnzero_indices
+
+train.model <- assess.glmnet(lasso_logistic.model, x_train, y_train)
+train.model
+
+test.model <- assess.glmnet(lasso_logistic.model, x_test, y_test)
+test.model
+```

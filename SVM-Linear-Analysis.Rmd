@@ -1,0 +1,304 @@
+---
+title: "ADHD-SVM Linear Analysis"
+output: pdf_document
+date: '2022-11-16'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+## LOADING AND ORGANIZING THE DATA
+
+```{r}
+DATA <-  read.csv("train_data.csv")
+adhd0 <- t(DATA)
+adhd1 <- adhd0[-1, ]
+
+#naming the colnames
+colnames(adhd1) <- as.character(adhd1[1, ])
+X <- apply(adhd1[,-1],2, as.numeric)
+X <- data.frame(adhd1[ ,1],X)
+adhd2 <- X[-1, ]
+adhd3 <- as.matrix(adhd2)
+colnames(adhd3)[1] <- "GROUP"
+
+#defining control group=0  
+cat_v <- c()
+for (i in 1:dim(adhd3)[1]){
+  if(adhd3[ ,"GROUP"][i] == "Controls")
+  {
+    cat_v[i]<-"0"
+  }else{
+    cat_v[i]<-"1"
+  }
+}
+#as.factor(cat_v)
+adhd3 <- data.frame(cat_v, adhd3)
+Z <- adhd3[ ,-2]
+Z <- apply(Z,2,as.numeric)
+r <- Z[ ,1]
+r <- as.matrix(r)
+adhd <- Z[ ,-1]
+
+rm(list=c("adhd0", "adhd1", "adhd2", "adhd3", "Z"))
+```
+
+## TRAINING AND TESTING DATA
+
+```{r}
+#training and testing data
+## % 80 of the sample size
+ind <- floor(0.8 * nrow(adhd))
+set.seed(2705)
+train_ind <- sample(seq_len(nrow(adhd)), size = ind)
+
+x_train <- as.data.frame(adhd[train_ind, ])
+y_train <- as.factor(r[train_ind, ])
+x_test <- as.data.frame(adhd[-train_ind, ])
+y_test <- as.factor(r[-train_ind, ])
+```
+
+## LOADING THE SWAG SVM LINEAR RESULTS
+
+```{r}
+load("SVMLinear_Results.Rda")
+```
+
+## FREQUENCY TABLE
+
+In the post-processing, we took the minimum CV_alpha and selected all the models who have CV_alpha less than or equal to it. The minimum CV_alpha is0.220925 and is the CV of dimension 20.
+
+There are a total of 114 models of dimensions 18, 19, 20. "54,21", "91,85", "105,10", "121,68", "126,2", "135,105", "140,53", "150,114", "152,22", "154,112", "174,73" features are present in all the models. Below is the frequency table.
+
+\begin{table}
+\centering
+\begin{tabular}[t]{c|c}
+\hline
+Feature & Frequency \\
+\hline
+14,6 &	5 \\
+\hline
+24,6 &	1 \\
+\hline
+54,21 &	114\\
+\hline
+58,38 &	4\\
+\hline
+58,47 &	2\\
+\hline
+61,31 &	1\\
+\hline
+61,35 &	6\\
+\hline
+62,10	& 8\\
+\hline
+69,15	& 1\\
+\hline
+70,14	& 66\\
+\hline
+72,6	& 12\\
+\hline
+77,4	& 9\\
+\hline
+77,19	& 2\\
+\hline
+78,58	& 40\\
+\hline
+79,13	& 7\\
+\hline
+80,77	& 12\\
+\hline
+82,69	& 5\\
+\hline
+82,80	& 1\\
+\hline
+83,27	& 2\\
+\hline
+88,45	& 6\\
+\hline
+91,85	& 114\\
+\hline
+92,2	& 2\\
+\hline
+92,73	& 39\\
+\hline
+95,53	& 1\\
+\hline
+99,14	& 1\\
+\hline
+103,91 & 1\\
+\hline
+104,21 &	1\\
+\hline
+104,90 &	3\\
+\hline
+105,10 & 114\\
+\hline
+105,83 &	4\\
+\hline
+105,91 &	71\\
+\hline
+108,10 &	4\\
+\hline
+113,107 &	1\\
+\hline
+114,68 &	8\\
+\hline
+114,72 &	1\\
+\hline
+115,54 &	1\\
+\hline
+116,30 &	3\\
+\hline
+116,42 &	3\\
+\hline
+116,95 &	1\\
+\hline
+117,102 &	3\\
+\hline
+119,99 &	1\\
+\hline
+121,68 &	114\\
+\hline
+124,34 &	1\\
+\hline
+126,2	& 114\\
+\hline
+128,116 &	3\\
+\hline
+130,80 &	66\\
+\hline
+135,55 &	1\\
+\hline
+135,82 &	3\\
+\hline
+135,105 &	114\\
+\hline
+137,9	& 4\\
+\hline
+137,131 &	9\\
+\hline
+138,89 &	6\\
+\hline
+138,92 &	1\\
+\hline
+139,20 &	1\\
+\hline
+139,118 &	3\\
+\hline
+140,53 &	114\\
+\hline
+145,18 &	3\\
+\hline
+146,30 &	5\\
+\hline
+146,31 &	1\\
+\hline
+146,78 &	1\\
+\hline
+147,33 &	1\\
+\hline
+147,65 &	16\\
+\hline
+148,14 &	28\\
+\hline
+148,47 &	1\\
+\hline
+148,89 &	1\\
+\hline
+148,146 &	6\\
+\hline
+150,40 &	67\\
+\hline
+150,114 &	114\\
+\hline
+151,147 &	2\\
+\hline
+152,22 &	114\\
+\hline
+154,112 &	114\\
+\hline
+155,7	& 5\\
+\hline
+157,81 &	56\\
+\hline
+160,62 &	1\\
+\hline
+161,47 &	66\\
+\hline
+163,55 &	1\\
+\hline
+164,82 &	4\\
+\hline
+165,23 &	4\\
+\hline
+165,135 &	27\\
+\hline
+166,112 &	1\\
+\hline
+168,34 &	3\\
+\hline
+168,97 &	2\\
+\hline
+168,116 &	1\\
+\hline
+169,18 &	10\\
+\hline
+169,47 &	15\\
+\hline
+169,108 &	1\\
+\hline
+171,59 &	1\\
+\hline
+172,136 &	1\\
+\hline
+174,57 &	4\\
+\hline
+174,73 &	114\\
+\hline
+175,27 &	1\\
+\hline
+177,55 &	2\\
+\hline
+177,65 &	2\\
+\hline
+179,47 &	2\\
+\hline
+183,12 &	106\\
+\hline
+183,21 &	1\\
+\hline
+183,118 &	2\\
+\hline
+185,34 &	24\\
+\hline
+185,62 &	1\\
+\hline
+187,14 &	11\\
+\hline
+187,60 &	1\\
+\hline
+188,35 &	5\\
+\hline
+188,99 &	5\\
+\hline
+188,174 &	5\\
+\hline
+189,8	& 22\\
+\hline
+189,34 &	7\\
+\hline
+189,64 &	5\\
+\hline
+189,99 &	2\\
+\hline
+190,3	& 5\\
+\hline
+190,127 &	10\\
+\hline
+\end{tabular}
+\end{table}
+
+## PREDICTION ERROR
+
