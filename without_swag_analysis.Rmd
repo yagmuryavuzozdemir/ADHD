@@ -1,5 +1,5 @@
 ---
-title: "ADHD Data Analysis with CV Repeat=10"
+title: "ADHD Data Analysis- Lasso Logistic, SVML, SVMR"
 output: html_document
 date: '2022-11-16'
 ---
@@ -11,8 +11,8 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 #### Loading and Organizing the Data
 
 ```{r}
-library(caret)
 library(glmnet)
+#train dataset
 
 DATA <-  read.csv("train_data.csv")
 adhd0 <- t(DATA)
@@ -39,12 +39,9 @@ for (i in 1:dim(adhd3)[1]){
 adhd3 <- data.frame(cat_v, adhd3)
 Z <- adhd3[ ,-2]
 Z <- apply(Z,2,as.numeric)
-r <- Z[ ,1]
-r <- as.vector(r)
-adhd <- Z[ ,-1]
+colnames(Z)[1] <- "Group"
 
 rm(list=c("adhd0", "adhd1", "adhd2", "adhd3"))
-logitControl  <- trainControl(method="repeatedcv",number = 10,repeats = 10)
 
 #training and testing data
 ## % 80 of the sample size
@@ -56,6 +53,39 @@ x_train <- Z[train_ind, ]
 y_train <- x_train[, 1]
 x_test <- Z[-train_ind, ]
 y_test <- x_test[ ,1]
+```
+
+```{r}
+#test dataset
+
+DATA1 <-  read.csv("test_data.csv")
+ADHD0 <- t(DATA1)
+ADHD1 <- ADHD0[-1, ]
+
+#naming the colnames
+colnames(ADHD1) <- as.character(ADHD1[1, ])
+X_t <- apply(ADHD1[,-1],2, as.numeric)
+X_t <- data.frame(ADHD1[ ,1],X_t)
+ADHD2 <- X_t[-1, ]
+ADHD3 <- as.matrix(ADHD2)
+colnames(ADHD3)[1] <- "group"
+
+#defining control group=0  
+cat_t <- c()
+for (i in 1:dim(ADHD3)[1]){
+  if(ADHD3[ ,"group"][i] == "Controls")
+  {
+    cat_t[i]<-"0"
+  }else{
+    cat_t[i]<-"1"
+  }
+}
+ADHD3 <- data.frame(cat_t, ADHD3)
+Y<- ADHD3[ ,-2]
+Y <- apply(Y,2,as.numeric)
+colnames(Y)[1] <- "Group_t"
+
+rm(list=c("ADHD0", "ADHD1", "ADHD2", "ADHD3"))
 ```
 
 #### Logistic-Lasso Regression
@@ -75,8 +105,60 @@ nnzero_indices <- which(B != 0, arr.ind = T)
 nnzero_indices
 
 train.model <- assess.glmnet(lasso_logistic.model, x_train, y_train)
-train.model
+train.model$mse
 
-test.model <- assess.glmnet(lasso_logistic.model, x_test, y_test)
-test.model
+test.model_split <- assess.glmnet(lasso_logistic.model, x_test, y_test)
+test.model_split$mse
+
+test.model <- assess.glmnet(lasso_logistic.model, Y, Y[ ,1])
+test.model$mse
+```
+
+#### SVM Linear
+
+Applying SVM Linear on the data, we have the following results:
+
+```{r}
+library(e1071)
+fit_SVML <-  svm(formula = Group ~ .,
+                 data = x_train,
+                 type = 'C-classification',
+                 kernel = 'linear')
+#predicting the test set results for the split test data
+ypred_split_SVML <- predict(fit_SVML, newdata = x_test[,-1])
+# Making the Confusion Matrix for the split test data
+CM_split_L = table(y_test, ypred_split_SVML)
+error_split_SVML <- mean( ypred_split_SVML !=y_test)
+error_split_SVML
+
+#predicting the test set results for the original test data
+ypred_SVML <- predict(fit_SVML, newdata = Y[,-1])
+# Making the Confusion Matrix for the original test data
+CM_L = table(Y[ ,1], ypred_SVML)
+error_SVML <- mean( ypred_SVML != Y[ ,1])
+error_SVML
+```
+
+#### SVM Radial
+
+Applying SVM Radial on the data, we have the following results
+
+```{r}
+fit_SVMR <-  svm(formula = Group ~ .,
+                 data = x_train,
+                 type = 'C-classification',
+                 kernel = 'radial')
+#predicting the test set results for the split test data
+ypred_split_SVMR <- predict(fit_SVMR, newdata = x_test[,-1])
+# Making the Confusion Matrix for the split test data
+CM_split_R = table(y_test, ypred_split_SVMR)
+error_split_SVMR <- mean( ypred_split_SVMR !=y_test)
+error_split_SVMR
+
+#predicting the test set results for the original test data
+ypred_SVMR <- predict(fit_SVMR, newdata = Y[,-1])
+# Making the Confusion Matrix for the original test data
+CM_R = table(Y[ ,1], ypred_SVMR)
+error_SVMR <- mean( ypred_SVMR != Y[ ,1])
+error_SVMR
 ```
