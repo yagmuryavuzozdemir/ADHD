@@ -1,0 +1,265 @@
+---
+title: "ADHD - SVM Radial"
+output: html_document
+date: "2022-10-27"
+---
+
+## Loading and orginizing the data
+```{r message=FALSE, warning=FALSE}
+adhd = read.csv("train_data.csv")
+adhd = as.data.frame(t(adhd))
+#str(adhd)
+colnames(adhd) = as.character(adhd[2,])
+adhd = adhd[-(1:2),]
+X = apply(adhd[,-1], 2, as.numeric)
+adhd = data.frame(adhd[,1], X)
+adhd = as.data.frame(adhd)
+rownames(adhd) = 1:nrow(adhd)
+
+
+
+adhd[adhd == "Controls"]=0
+adhd[adhd == "ADHD-C" | adhd == "ADHD-H" | adhd == "ADHD-I"]=1
+
+predictors = as.data.frame(adhd[,-1])
+y = as.factor(adhd[,1])
+
+
+```
+
+## Test and train set
+```{r message=FALSE, warning=FALSE}
+set.seed(2705) 
+ind = sample(1:dim(predictors)[1],dim(predictors)[1]*0.2)  
+y_test = y[ind]
+y_train = y[-ind]
+x_test = predictors[ind,]
+x_train = predictors[-ind,]
+```
+
+## Loading the results of swag with svm radial
+```{r message=FALSE, warning=FALSE}
+
+load("ADHD_svmradial.Rda")
+
+```
+
+
+## Post-processing
+```{r message=FALSE, warning=FALSE}
+min_error = min(train_swag_svmradial$cv_alpha)
+varmat_ind = list() #saves the varmat index from CV errors
+for(i in 1:20){
+  varmat_ind[[i]]=which(train_swag_svmradial$CVs[[i]]<=min_error, arr.ind = T)
+}
+
+post_sel = list() # models selected after post-processing
+for(i in 1:20){
+  post_sel[[i]] = train_swag_svmradial$VarMat[[i]][,varmat_ind[[i]]]
+}
+
+post_sel[[1]] = t(as.matrix(post_sel[[1]]))
+
+for(i in 1:20){
+  if(!is.matrix(post_sel[[i]])){
+    post_sel[[i]]=t(as.matrix(post_sel[[i]]))
+  }
+}
+
+
+x = c() #non-empty elements of post-group
+for(i in 1:20){
+  if(length(post_sel[[i]])!=0){
+    x = c(x,i)
+  }
+  x = x
+}
+
+for(i in 1:length(x)){
+  if(nrow(post_sel[[x[i]]])<20){
+    diff = 20 - nrow(post_sel[[x[i]]])
+    post_sel[[x[i]]] = rbind(post_sel[[x[i]]],matrix(NA,nrow = diff, ncol = ncol(post_sel[[x[i]]])))
+  } 
+}
+
+
+models = matrix(NA, nrow = 20,ncol=ncol(post_sel[[x[1]]]))
+
+models[1:nrow(post_sel[[x[1]]]),]=post_sel[[x[1]]]
+
+for(i in 2:length(x)){
+  models = cbind(models,post_sel[[x[i]]])
+}
+
+models = t(models)
+
+selected_var = c() 
+for(i in 1:ncol(models)){
+  selected_var = c(selected_var,models[,i])
+}
+selected_var = na.omit(unique(selected_var))
+selected_var = sort(selected_var)
+freq = table(models)
+variable = colnames(x_train)[selected_var]
+
+freq_table = cbind(variable,freq)
+rownames(freq_table) = c(1:nrow(freq_table))
+freq_table = as.data.frame(freq_table)
+freq_table$freq = as.numeric(freq_table$freq)
+#freq_table
+```
+
+`models` matrix contains the models and 47 variables chosen after post-processing. There are 146 models of dimensions 17, 18, 19 and 20. `freq_table` shows the frequency of each feature selected. The most frequent features are `13.11`, `71.10`, `108.47`, `114.14` `148.61`, `157.81` and `189.151`, which are contained by every model. The most second frequent ones are `47.9`, `91.85` and `108.23` with frequency 142.
+
+||Feature|Frequency|
+|-|-|-|
+|1|13.6|49|
+|2|13.11|146|
+|3|34.27|6|
+|4|40.19|132|
+|5|47.9|142|
+|6|47.21|8|
+|7|71.6|4|
+|8|71.10|146|
+|9|72.11|14|
+|10|79.47|22|
+|11|85.13|14|
+|12|89.5|27|
+|13|91.7|5|
+|14|91.23.|44|
+|15|91.85.|142|
+|16|93.53.|40|
+|17|107.2.|135|
+|18|108.23.|142|
+|19|108.47|146|
+|20|113.44|31|
+|21|114.14|146|
+|22|116.47.|19|
+|23|116.65.|9|
+|24|116.89.|9|
+|25|124.99.|5|
+|26|126.2.|6|
+|27|132.4.|133|
+|28|134.99.|4|
+|29|143.123.|1|
+|30|146.138.|27|
+|31|148.31.|5|
+|32|148.61.|146|
+|33|154.69.|136|
+|34|157.81.|146|
+|35|165.13.|132|
+|36|166.112.|4|
+|37|170.91.|14|
+|38|173.47.|25|
+|39|175.13.|53|
+|40|175.95.|137|
+|41|179.167.|3|
+|42|186.146.|67|
+|43|189.9.|10|
+|44|189.21.|22|
+|45|189.49.|10|
+|46|189.126.|26|
+|47|189.151.|146|
+
+
+
+
+```{r message=FALSE, warning=FALSE}
+require(plotrix)
+
+m_vector <- sapply(train_swag_svmradial$CVs, function(x) summary(x)[4])
+
+l_vector <- sapply(train_swag_svmradial$CVs, function(x) summary(x)[1])
+
+u_vector <- sapply(train_swag_svmradial$CVs, function(x) summary(x)[6])
+
+plotCI(1:length(train_swag_svmradial$CVs), m_vector, ui=u_vector, li=l_vector, 
+       scol = "grey", col="red", pch = 16, main = "Ranges 10-fold CV Misclassification Errors",
+       ylab = "Range CV Error",xlab = "Model Size")
+```
+
+
+The plot shows the range of CV errors for each dimension. There is a clear decay in CV errors as the dimension increases.
+```{r message=FALSE, warning=FALSE}
+corr = matrix(NA, nrow = length(selected_var), ncol = length(selected_var))
+for(i in 1:length(selected_var)){
+  for(j in 1:length(selected_var)){
+    corr[i,j] = cor(x_train[,selected_var[i]],x_train[,selected_var[j]], method = "spearman")
+  }
+}
+colnames(corr) = colnames(x_train)[selected_var]
+rownames(corr) = colnames(x_train)[selected_var]
+```
+`corr` matrix is the correlation matrix of the features. The most positively correlated ones are `47.9` and `189.9` with correlation 0.6560307. The most negatively correlated ones are `126.2` and `107.2`. 
+
+
+
+```{r message=FALSE, warning=FALSE}
+A = matrix(0, nrow = ncol(models), ncol =ncol(models))
+intensity = matrix(0, nrow = length(selected_var), ncol = length(selected_var))
+b=0
+a = list()
+for(i in 1:(length(selected_var)-1)){
+  for(j in (i+1):length(selected_var)){
+    for(k in 1:(ncol(models)-1)){
+      a[[i]]=which(models[,k]==selected_var[i])
+      for(n in (k+1):(ncol(models))){
+        A[k,n]=length(which(models[a[[i]],n]==selected_var[j]))
+      }
+    }
+    intensity[i,j]=sum(A)
+    intensity[j,i]=sum(A)
+  }
+}
+rownames(intensity)=colnames(x_train)[selected_var]
+colnames(intensity)=colnames(x_train)[selected_var]
+#variables that are mostly together
+#which(intensity==max(intensity),arr.ind = T)
+
+```
+
+`intensity` matrix denotes the interaction between the features, the number of times that they appear in the same model. Not surprisingly, the most frequent features have the most interaction, since they are contained in all models. It has a similar pattern to frequency table, the most frequent features have high interaction among them. 
+
+```{r message=FALSE, warning=FALSE}
+#required packages 
+library(igraph)
+library(dplyr)
+library(gdata)
+#creating adjacency matrix
+adjacency_matrix = matrix(NA, ncol = ncol(intensity), nrow = nrow(intensity))
+
+for(i in 1:ncol(adjacency_matrix)){
+  for(j in 1:nrow(adjacency_matrix)){
+    if(intensity[i,j]>0){
+      adjacency_matrix[i,j]=1
+    }else{
+      adjacency_matrix[i,j]=0
+    }
+  }
+}
+
+graph = graph.adjacency(adjacency_matrix, mode = 'undirected')
+
+# size of vertices
+ a = table(models)
+V(graph)$size = a*0.05
+
+V(graph)$label = c(1:47)
+
+# edge thickness
+upper_thick = upperTriangle(intensity, byrow = T)
+upper_thick = upper_thick[upper_thick!=0]
+E(graph)$width = upper_thick*0.01
+
+
+#plotting the network
+plot(as.undirected(graph), vertex.color="blue", vertex.label.size = V(graph)$size, vertex.label=V(graph)$label, vertex.label.color = "black", edge.width = E(graph)$width, edge.color="grey", layout= layout_randomly)
+
+
+```
+
+This plot shows the resulting network of the features.
+
+### Appendix 
+
+The frequency table is ordered according to the order of features given in the dataset.
