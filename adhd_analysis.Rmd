@@ -353,3 +353,7 @@ graph = graph.adjacency(adjacency_matrix, mode = 'undirected')
 
 #V(graph)$effect = beta_sign
 #V(graph)$color = colrs[V(graph)$effect]
+
+
+
+hello
