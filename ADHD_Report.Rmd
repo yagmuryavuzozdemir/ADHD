@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Loading the train dataset
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 DATA <-  read.csv("train_data.csv")
 adhd0 <- t(DATA)
 adhd1 <- adhd0[-1, ]
@@ -45,7 +45,7 @@ rm(list=c("adhd0", "adhd1", "adhd2", "adhd3", "Z"))
 
 ## Splitting the training dataset
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 #training and testing data
 ## % 80 of the sample size
 ind <- floor(0.8 * nrow(adhd))
@@ -59,7 +59,7 @@ y_test <- as.factor(r[-train_ind, ])
 ```
 
 ## Loading the Original test dataset
-```{r}
+```{r message=FALSE, warning=FALSE}
 #test dataset
 
 DATA1 <-  read.csv("test_data.csv")
@@ -99,7 +99,7 @@ load("ADHD_package.Rda")
 ```
 
 ## Post-processing
-```{r}
+```{r message=FALSE, warning=FALSE}
 min_error = min(train_swag_svml$cv_alpha)
 
 
@@ -167,64 +167,64 @@ rownames(freq_table) = c(1:nrow(freq_table))
 freq_table = as.data.frame(freq_table)
 freq_table$freq = as.numeric(freq_table$freq)
 
-freq_table
+#freq_table
 ```
 
 |-|Variable      | Frequency| 
 |-| -------------- | ------- |
-| 1| 13.11.      | 51|
-| 2|  27.21.      | 51|
-| 3|    40.19.  | 3|
-| 4|   47.9.  | 5|
-| 5|   47.21.| 258|
-| 6|  47.27.| 1|
-| 7|  49.9.| 3|
-| 8|   49.47.| 21|
-| 9|  54.21.      | 381|
-| 10|  72.11.    | 363|
-| 11|  72.68.  | 381|
-| 12| 74.21.  | 43|
-| 13|  74.55.| 63|
-|14|82.13.| 12|
-|15|85.13.| 8|
-|16|101.85.| 381|
-|17| 104.34.      | 377|
-|18| 108.27.     | 207|
-| 19|108.47.  | 73|
-| 20|108.91.  | 201|
-| 21|112.67.| 7|
-|22| 114.6.| 23|
-|23| 114.28.| 172|
-|24| 114.40.| 281|
-|25| 116.21.      | 45|
-| 26| 116.47.      | 23|
-| 27| 116.55.  | 84|
-| 28| 116.89.  | 381|
-|29|  124.23.| 28|
-|30| 124.99.| 284|
-|31| 126.2.| 325|
-|32| 126.124.| 18|
-| 33| 129.40.      | 25|
-|34|  132.85.      | 1|
-|35| 134.23.  | 46|
-|36| 134.99.  | 66|
-|37|  135.114.| 1|
-|38| 136.132.| 1|
-|39| 138.23.| 20|
-|40| 138.107.| 9|
-|41| 146.89.      | 235|
-|42|  148.71.      | 9|
-|43|  150.114.  | 363|
-|44|  151.46.  | 55|
-|45|  151.147.| 377|
-|46| 162.73.| 267|
-|47| 169.49.| 34|
-|48| 173.9.| 149|
-|49|  173.47.      | 13|
-|50|  184.58.      | 37|
-|51|  189.21.  | 1|
-|52|  189.65.  | 7|
-|53|  189.173.| 37|
+| 1|'Insula_R' - 'Paracentral_Lobule_R'  | 381|
+| 2| 'Frontal_Sup_R'- 'Frontal_Mid_R'| 381|
+| 3|   'Temporal_Mid_L'-'Lingual_L' | 381|
+| 4|  'Insula_L'-'Frontal_Mid_L'| 381|
+| 5|'Frontal_Sup_R'-'Frontal_Inf_Orb_R'|377|
+| 6|'Supp_Motor_Area_L'-'SupraMarginal_L'|377|
+| 7|'Frontal_Sup_R'-'ParahippocampaGyrus'| 363|
+| 8|'Vermis_1_2'-'Temporal_Mid_L'| 363|
+| 9|'Vermis_4_5'-'Frontal_Sup_Orb_R'| 325|
+| 10|'Frontal_Sup_Medial_L'-'Cingulum_Mid_L'| 284|
+| 11|'Temporal_Mid_L'-'Pallidum_R'| 281|
+| 12|'Occipital_Mid_L'-'Cerebelum_Crus2_L'|267|
+| 13|'Cingulum_Ant_L'-'Paracentral_Lobule_R'| 258|
+|14|'Temporal_Pole_Sup_R'-'Frontal_Mid_L'| 235|
+|15|'Frontal_Mid_L'-'Caudate_R'| 207|
+|16|'Frontal_Mid_L'-'Frontal_Sup_L'| 201|
+|17|'Temporal_Mid_L'-'Temporal_Sup_L'| 172|
+|18|'Frontal_Sup_R'-'Precuneus_R'| 149|
+|19|'Insula_L'-'Postcentral_R'| 84|
+|20|'Frontal_Mid_L'-'Cingulum_Ant_L'| 73|
+|21|'Frontal_Sup_Medial_R'-'Cingulum_Mid_L'| 66|
+|22|'Cingulum_Post_L'-Postcentral_R'| 63|
+|23|'Supp_Motor_Area_L'-'SupraMarginal_L'| 55|
+|24|'Frontal_Sup_L'-'ParahippocampaGyrus'| 51|
+|25|'Caudate_R'-'Paracentral_Lobule_R'| 51|
+|26|'Frontal_Sup_Medial_R'-'Frontal_Inf_Tri_L'| 46|
+|27|'Insula_L'-'Paracentral_Lobule_R'| 45|
+|28|'Cingulum_Post_L'-'Paracentral_Lobule_R'| 43|
+|29|'Parietal_Sup_R'-'Cuneus_L'| 37|
+|30|'Cingulum_Ant_R'-'Frontal_Sup_R'| 37|
+|31|'Parietal_Inf_L'-'Caudate_Head_L'| 34|
+|32|'Frontal_Sup_Medial_L'-'Frontal_Inf_Tri_L'| 28|
+|33|'Insula_R'-Pallidum_R'| 25|
+|34|'Temporal_Mid_L'-'Putamen_L'| 23|
+|35|'Insula_L'-Cingulum_Ant_L'| 23|
+|36|'Caudate_Head_L'-Cingulum_Ant_L'| 21|
+|37|'Frontal_Med_Orb_R'-'Frontal_Inf_Tri_L'| 20|
+|38|'Vermis_4_5'-'Frontal_Sup_Medial_L'| 18|
+|39|'Frontal_Sup_R'-Cingulum_Ant_L'| 13|
+|40|'Cingulum_Mid_R'-'Frontal_Sup_L'| 12|
+|41|'Frontal_Med_Orb_R'-'Frontal_Mid_R'| 9|
+|42|'Rolandic_Oper_L'-'Temporal_Inf_L'| 9|
+|43|'Lingual_L'-'Frontal_Sup_L'| 8|
+|44|'Cingulum_Ant_R'-'Frontal_Mid_L'| 7|
+|45|'Cingulum_Ant_R'-'Cingulum_Mid_L'| 7|
+|46|Cingulum_Ant_L'-'Precuneus_R'| 5|
+|47|Pallidum_R'-'Temporal_Mid_R'| 3|
+|48|'Caudate_Head_L'-Precuneus_R'| 3|
+|49|Cingulum_Ant_L'-'Caudate_R'| 1|
+|50|'Temporal_Inf_L'-'Lingual_L'| 1|
+|51|'Temporal_Sup_L'-'Temporal_Mid_L'| 1|
+|52|'Vermis_6'-Temporal_Inf_L'| 1|
+|53|'Cingulum_Ant_R'-'Paracentral_Lobule_R'| 1|
 
 `models` matrix contains the models and 53 variables chosen after post-processing. There are 381 models of dimensions starting from 9 upto 20. freq_table shows the frequency of each feature selected. The most frequent features are `54.21.`, `72.68.`, `101.85.` and `116.89.`,  which are contained by every model. The most second frequent ones are `104.34.`, `151.147.` frequency 377.
 
@@ -247,7 +247,7 @@ The plot shows the range of CV errors for each dimension. There is a clear decay
 
 ## Loading the SWAG SVM Linear results
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 load("SVMLinear_Results.Rda")
 ```
 
