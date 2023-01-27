@@ -452,147 +452,145 @@ Feature & Variable & Frequency \\
 \hline
 'Parietal-Inf-L'$\leftrightarrow$'Fusiform-R' & 157.81	& 56\\
 \hline
-83,27	& 2\\
+'Frontal-Sup-Orb-L'$\leftrightarrow$'Cuneus-L' & 78.58	& 40\\
 \hline
-88,45	& 6\\
+'Angular-R'$\leftrightarrow$'Cerebelum-Crus2-L' & 92.73	& 39\\
 \hline
-91,85	& 114\\
+'Rolandic-Oper-L'$\leftrightarrow$'Frontal-Inf-Orb-L' & 148.14	& 28\\
 \hline
-92,2	& 2\\
+'Midbrain'$\leftrightarrow$'Temporal-Sup-L' & 165.135 & 27\\
 \hline
-92,73	& 39\\
+'Temporal-Pole-Sup-R'$\leftrightarrow$'Frontal-Inf-Orb-R' & 185.34	& 24\\
 \hline
-95,53	& 1\\
+'Cingulum-Ant-R'$\leftrightarrow$'Temporal-Mid-R' & 189.8	& 22\\
 \hline
-99,14	& 1\\
+'SupraMarginal-L'$\leftrightarrow$'Cingulum-Mid-L' & 147.65	& 16\\
 \hline
-103,91 & 1\\
+'Parietal-Inf-L'$\leftrightarrow$'Cingulum-Ant-L' & 169.47 & 15\\
 \hline
-104,21 &	1\\
+'Frontal-Sup-R'$\leftrightarrow$'Putamen-L' & 72.6 & 12\\
 \hline
-104,90 &	3\\
+'Precentral-L'$\leftrightarrow$'Occipital-Mid-R'& 80.77 & 12\\
 \hline
-105,10 & 114\\
+'Temporal-Mid-L'$\leftrightarrow$'Frontal-Inf-Orb-L' & 187.14 & 11\\
 \hline
-105,83 &	4\\
+'Parietal-Inf-L'$\leftrightarrow$'Precuneus-L' & 169.18 & 10\\
 \hline
-105,91 &	71\\
+'Frontal-Inf-Oper-R'$\leftrightarrow$'SupraMarginal-R' & 190.127 & 10\\
 \hline
-108,10 &	4\\
+'Occipital-Mid-R'$\leftrightarrow$'Lingual-R' & 77.4 & 9\\
 \hline
-113,107 &	1\\
+'Occipital-Sup-R'$\leftrightarrow$'Parietal-Sup-R' & 137.131 &	9\\
 \hline
-114,68 &	8\\
+'Thalamus-R'$\leftrightarrow$'Frontal-Sup-Medial-L' & 62.10 & 8\\
 \hline
-114,72 &	1\\
+'Temporal-Mid-L'$\leftrightarrow$'Frontal-Mid-R & 114.68 & 8\\
 \hline
-115,54 &	1\\
+'Frontal-Mid-L'$\leftrightarrow$'Frontal-Sup-L' & 79.13 & 7\\
 \hline
-116,30 &	3\\
+'Cingulum-Ant-R'$\leftrightarrow$'Frontal-Inf-Orb-R' & 189.34 & 7\\
 \hline
-116,42 &	3\\
+'Insula-L'$\leftrightarrow$'Brainstem' & 61.35 &	6\\
 \hline
-116,95 &	1\\
+'Calcarine-L'$\leftrightarrow$'Cerebelum-8-R' & 88.45 &	6\\
 \hline
-117,102 &	3\\
+'Frontal-Med-Orb-R'$\leftrightarrow$'Frontal-Mid-L'& 138.89 & 6\\
 \hline
-119,99 &	1\\
+'Rolandic-Oper-L'$\leftrightarrow$'Temporal-Pole-Sup-R'& 148.146 & 6\\
 \hline
-121,68 &	114\\
+'Frontal-Inf-Orb-L'$\leftrightarrow$'Putamen-L'& 14.6 & 5\\
 \hline
-124,34 &	1\\
+'Cingulum-Mid-R'$\leftrightarrow$'Frontal-Mid-L' & 82.69	& 5\\
 \hline
-126,2	& 114\\
+'Temporal-Pole-Sup-R'$\leftrightarrow$'Supp-Motor-Area-R' & 146.30 &	5\\
 \hline
-128,116 &	3\\
+'Cerebelum-8-R'$\leftrightarrow$'Cerebelum-6-L' & 155.7 & 5\\
 \hline
-130,80 &	66\\
+'Rectus-L'$\leftrightarrow$'Brainstem' & 188.35 & 5\\
 \hline
-135,55 &	1\\
+'Rectus-L'$\leftrightarrow$'Cingulum-Mid-L' & 188.99 & 5\\
 \hline
-135,82 &	3\\
+'Rectus-L'$\leftrightarrow$'Cerebelum-6-L' & 188.174 & 5\\
 \hline
-135,105 &	114\\
+'Cingulum-Ant-R'$\leftrightarrow$'Temporal-Mid-R' & 189.64 & 5\\
 \hline
-137,9	& 4\\
+'Frontal-Inf-Oper-R'$\leftrightarrow$'Frontal-Inf-Tri-R' & 190.3 &	5\\
 \hline
-137,131 &	9\\
+'Cuneus-L'$\leftrightarrow$'Precuneus-L' & 58.38 & 4\\
 \hline
-138,89 &	6\\
+'Thalamus-L'$\leftrightarrow$'Frontal-Sup-Medial-R' & 105.83 & 4\\
 \hline
-138,92 &	1\\
+'Frontal-Mid-L'$\leftrightarrow$'Frontal-Sup-Medial-L' & 108.10 & 4\\
 \hline
-139,20 &	1\\
+'Occipital-Sup-R'$\leftrightarrow$'Precuneus-R' & 137.9 &	4\\
 \hline
-139,118 &	3\\
+'Frontal-Inf-Oper-R'$\leftrightarrow$'Cingulum-Mid-R' & 164.82 & 4\\
 \hline
-140,53 &	114\\
+'Midbrain'$\leftrightarrow$'Frontal-Inf-Tri-L' & 165.23 & 4\\
 \hline
-145,18 &	3\\
+'Cerebelum-6-L'$\leftrightarrow$'Temporal-Inf-R' & 174.57 & 4\\
 \hline
-146,30 &	5\\
+'Frontal-Sup-R'$\leftrightarrow$'Frontal-Mid-Orb-R'& 104.90 & 3\\
 \hline
-146,31 &	1\\
+'Insula-L'$\leftrightarrow$'Supp-Motor-Area-R' & 116.30 & 3\\
 \hline
-146,78 &	1\\
+'Insula-L'$\leftrightarrow$'Postcentral-R' & 116.42 & 3\\
 \hline
-147,33 &	1\\
+'Caudate-R'$\leftrightarrow$'Temporal-Pole-Mid-R' & 117.102 & 3\\
 \hline
-147,65 &	16\\
+'Precentral-L'$\leftrightarrow$'Insula-L' & 128.116 & 3\\
 \hline
-148,14 &	28\\
+'Temporal-Sup-L'$\leftrightarrow$'Cingulum-Mid-R' & 135.82 & 3\\
 \hline
-148,47 &	1\\
+'Supp-Motor-Area-L'$\leftrightarrow$'Angular-L' & 139.118 & 3\\
 \hline
-148,89 &	1\\
+'Precuneus-L'$\leftrightarrow$'Precuneus-L' & 145.18 &	3\\
 \hline
-148,146 &	6\\
+'RectalGyrus'$\leftrightarrow$'Frontal-Inf-Orb-R' & 168.34 & 3\\
 \hline
-150,40 &	67\\
+'Cuneus-L'$\leftrightarrow$'Cingulum-Ant-L' & 58.47 &	2\\
 \hline
-150,114 &	114\\
+'Occipital-Mid-R'$\leftrightarrow$'Temporal-Mid-R' & 77.19 &	2\\
 \hline
-151,147 &	2\\
+'Frontal-Sup-Medial-R'$\leftrightarrow$'Caudate-R' & 83.27 & 2\\
 \hline
-152,22 &	114\\
+'Angular-R'$\leftrightarrow$'Frontal-Sup-Orb-R' & 92.2 & 2\\
 \hline
-154,112 &	114\\
+'Supp-Motor-Area-L'$\leftrightarrow$'SupraMarginal-L' & 151.147	& 2\\
 \hline
-155,7	& 5\\
+'RectalGyrus'$\leftrightarrow$'Cerebelum-8-R' & 168.97 & 2\\
 \hline
-157,81 &	56\\
+'Paracentral-Lobule-L'$\leftrightarrow$'Postcentral-R' & 177.55 & 2\\
 \hline
-160,62 &	1\\
+'Paracentral-Lobule-L'$\leftrightarrow$'Cingulum-Mid-L' & 177.65 & 2\\
 \hline
-161,47 &	66\\
+'Temporal-Mid-L'$\leftrightarrow$'Cingulum-Ant-L' & 179.47 & 2\\
 \hline
-163,55 &	1\\
+'Parietal-Inf-L'$\leftrightarrow$'Angular-L' & 183.118 & 2\\
 \hline
-164,82 &	4\\
+'Cingulum-Ant-R'$\leftrightarrow$'Cingulum-Mid-L' & 189.99 & 2\\
 \hline
-165,23 &	4\\
+'Cuneus-L'$\leftrightarrow$Putamen-L' & 24.6 & 1\\
 \hline
-165,135 &	27\\
+'Insula_L'$\leftrightarrow$'Temporal_Mid_L' & 61.31 &	1\\
 \hline
-166,112 &	1\\
+'Frontal-Mid-L'$\leftrightarrow$'Temporal-Inf-R'& 69.15 & 1\\
 \hline
-168,34 &	3\\
+'Cingulum-Mid-R'$\leftrightarrow$'Precentral-L' & 82.80 & 1\\
 \hline
-168,97 &	2\\
+'Parietal-Sup-L'$\leftrightarrow$'Precentral-R' & 95.53 &	1\\
 \hline
-168,116 &	1\\
+'Cingulum-Mid-L'$\leftrightarrow$'Frontal-Inf-Orb-L' & 99.14 & 1\\
 \hline
-169,18 &	10\\
+'Temporal-Inf-L'$\leftrightarrow$'Frontal-Sup-L' & 103.91 & 1\\
 \hline
-169,47 &	15\\
+'Frontal-Sup-R'$\leftrightarrow$'Paracentral-Lobule-R'& 104.21 & 1\\
 \hline
-169,108 &	1\\
+'Vermis-9'$\leftrightarrow$'Frontal-Mid-R' & 113.107 & 1\\
 \hline
-171,59 &	1\\
+'Temporal-Mid-L'$\leftrightarrow$'Frontal-Sup-R' & 114.72 &	1\\
 \hline
-172,136 &	1\\
-\hline
-174,57 &	4\\
+'Postcentral-R'$\leftrightarrow$'Insula-R' & 115.54 & 1\\
 \hline
 174,73 &	114\\
 \hline
