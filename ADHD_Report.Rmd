@@ -1,15 +1,16 @@
 ---
 title: "ADHD Report"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Loading the train dataset
+## Logistic Regression Using SWAG
 
 ```{r message=FALSE, warning=FALSE}
+## Loading the train dataset
 DATA <-  read.csv("train_data.csv")
 adhd0 <- t(DATA)
 adhd1 <- adhd0[-1, ]
@@ -43,9 +44,11 @@ adhd <- Z[ ,-1]
 rm(list=c("adhd0", "adhd1", "adhd2", "adhd3", "Z"))
 ```
 
-## Splitting the training dataset
+
 
 ```{r message=FALSE, warning=FALSE}
+## Splitting the training dataset
+
 #training and testing data
 ## % 80 of the sample size
 ind <- floor(0.8 * nrow(adhd))
@@ -58,8 +61,10 @@ x_test <- as.data.frame(adhd[-train_ind, ])
 y_test <- as.factor(r[-train_ind, ])
 ```
 
-## Loading the Original test dataset
+
 ```{r message=FALSE, warning=FALSE}
+## Loading the Original test dataset
+
 #test dataset
 
 DATA1 <-  read.csv("test_data.csv")
@@ -92,14 +97,16 @@ colnames(Y)[1] <- "Group_t"
 rm(list=c("ADHD0", "ADHD1", "ADHD2", "ADHD3"))
 ```
 
-## Loading the SWAG Logistic Regression results
+
 
 ```{r message=FALSE, warning=FALSE}
+## Loading the SWAG Logistic Regression results
 load("ADHD_package.Rda")
 ```
 
-## Post-processing
+
 ```{r message=FALSE, warning=FALSE}
+## Post-processing
 min_error = min(train_swag_svml$cv_alpha)
 
 
@@ -170,63 +177,6 @@ freq_table$freq = as.numeric(freq_table$freq)
 #freq_table
 ```
 
-|-|Variable      | Frequency| 
-|-| -------------- | ------- |
-| 1|'Insula_R' - 'Paracentral_Lobule_R'  | 381|
-| 2| 'Frontal_Sup_R'- 'Frontal_Mid_R'| 381|
-| 3|   'Temporal_Mid_L'-'Lingual_L' | 381|
-| 4|  'Insula_L'-'Frontal_Mid_L'| 381|
-| 5|'Frontal_Sup_R'-'Frontal_Inf_Orb_R'|377|
-| 6|'Supp_Motor_Area_L'-'SupraMarginal_L'|377|
-| 7|'Frontal_Sup_R'-'ParahippocampaGyrus'| 363|
-| 8|'Vermis_1_2'-'Temporal_Mid_L'| 363|
-| 9|'Vermis_4_5'-'Frontal_Sup_Orb_R'| 325|
-| 10|'Frontal_Sup_Medial_L'-'Cingulum_Mid_L'| 284|
-| 11|'Temporal_Mid_L'-'Pallidum_R'| 281|
-| 12|'Occipital_Mid_L'-'Cerebelum_Crus2_L'|267|
-| 13|'Cingulum_Ant_L'-'Paracentral_Lobule_R'| 258|
-|14|'Temporal_Pole_Sup_R'-'Frontal_Mid_L'| 235|
-|15|'Frontal_Mid_L'-'Caudate_R'| 207|
-|16|'Frontal_Mid_L'-'Frontal_Sup_L'| 201|
-|17|'Temporal_Mid_L'-'Temporal_Sup_L'| 172|
-|18|'Frontal_Sup_R'-'Precuneus_R'| 149|
-|19|'Insula_L'-'Postcentral_R'| 84|
-|20|'Frontal_Mid_L'-'Cingulum_Ant_L'| 73|
-|21|'Frontal_Sup_Medial_R'-'Cingulum_Mid_L'| 66|
-|22|'Cingulum_Post_L'-Postcentral_R'| 63|
-|23|'Supp_Motor_Area_L'-'SupraMarginal_L'| 55|
-|24|'Frontal_Sup_L'-'ParahippocampaGyrus'| 51|
-|25|'Caudate_R'-'Paracentral_Lobule_R'| 51|
-|26|'Frontal_Sup_Medial_R'-'Frontal_Inf_Tri_L'| 46|
-|27|'Insula_L'-'Paracentral_Lobule_R'| 45|
-|28|'Cingulum_Post_L'-'Paracentral_Lobule_R'| 43|
-|29|'Parietal_Sup_R'-'Cuneus_L'| 37|
-|30|'Cingulum_Ant_R'-'Frontal_Sup_R'| 37|
-|31|'Parietal_Inf_L'-'Caudate_Head_L'| 34|
-|32|'Frontal_Sup_Medial_L'-'Frontal_Inf_Tri_L'| 28|
-|33|'Insula_R'-Pallidum_R'| 25|
-|34|'Temporal_Mid_L'-'Putamen_L'| 23|
-|35|'Insula_L'-Cingulum_Ant_L'| 23|
-|36|'Caudate_Head_L'-Cingulum_Ant_L'| 21|
-|37|'Frontal_Med_Orb_R'-'Frontal_Inf_Tri_L'| 20|
-|38|'Vermis_4_5'-'Frontal_Sup_Medial_L'| 18|
-|39|'Frontal_Sup_R'-Cingulum_Ant_L'| 13|
-|40|'Cingulum_Mid_R'-'Frontal_Sup_L'| 12|
-|41|'Frontal_Med_Orb_R'-'Frontal_Mid_R'| 9|
-|42|'Rolandic_Oper_L'-'Temporal_Inf_L'| 9|
-|43|'Lingual_L'-'Frontal_Sup_L'| 8|
-|44|'Cingulum_Ant_R'-'Frontal_Mid_L'| 7|
-|45|'Cingulum_Ant_R'-'Cingulum_Mid_L'| 7|
-|46|Cingulum_Ant_L'-'Precuneus_R'| 5|
-|47|Pallidum_R'-'Temporal_Mid_R'| 3|
-|48|'Caudate_Head_L'-Precuneus_R'| 3|
-|49|Cingulum_Ant_L'-'Caudate_R'| 1|
-|50|'Temporal_Inf_L'-'Lingual_L'| 1|
-|51|'Temporal_Sup_L'-'Temporal_Mid_L'| 1|
-|52|'Vermis_6'-Temporal_Inf_L'| 1|
-|53|'Cingulum_Ant_R'-'Paracentral_Lobule_R'| 1|
-
-`models` matrix contains the models and 53 variables chosen after post-processing. There are 381 models of dimensions starting from 9 upto 20. freq_table shows the frequency of each feature selected. The most frequent features are `54.21.`, `72.68.`, `101.85.` and `116.89.`,  which are contained by every model. The most second frequent ones are `104.34.`, `151.147.` frequency 377.
 
 ```{r message=FALSE, warning=FALSE}
 require(plotrix)
@@ -243,13 +193,217 @@ plotCI(1:length(train_swag_svml$CVs), m_vector, ui=u_vector, li=l_vector, scol =
 The plot shows the range of CV errors for each dimension. There is a clear decay in CV errors as the dimension increases.
 
 
+\begin{table}
+\centering
+\begin{tabular}[t]{||c|c|c||}
+\hline
+Feature & Variable & Frequency \\
+\hline \hline
+'Insula-R' $\leftrightarrow$ 'Paracentral-Lobule-R' & 54.21 &	381 \\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$ 'Frontal-Mid-R' & 72.68 & 381 \\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$ 'Lingual-L'& 101.85 &	381\\
+\hline
+'Insula-L'$\leftrightarrow$ 'Frontal-Mid-L' & 116.89 & 381\\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$ 'Frontal-Inf-Orb-R' & 104.34 & 377\\
+\hline
+'Supp-Motor-Area-L'$\leftrightarrow$ 'SupraMarginal-L' & 151.147 & 377\\
+\hline
+Frontal-Sup-R'$\leftrightarrow$ 'ParahippocampaGyrus' & 72.11 &	363\\
+\hline
+'Vermis-1-2'$\leftrightarrow$ 'Temporal-Mid-L' & 150.114 & 363\\
+\hline
+'Vermis-4-5'$\leftrightarrow$ 'Frontal-Sup-Orb-R' & 126.2	& 325\\
+\hline
+'Frontal-Sup-Medial-L'$\leftrightarrow$ 'Cingulum-Mid-L'& 124.99 & 284\\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$ 'Pallidum-R'& 114.40 & 281\\
+\hline
+'Occipital-Mid-L'$\leftrightarrow$ 'Cerebelum-Crus2-L' & 162.73 & 267\\
+\hline
+'Cingulum-Ant-L'$\leftrightarrow$ Paracentral-Lobule-R' & 47.21	& 258\\
+\hline
+'Temporal-Pole-Sup-R'$\leftrightarrow$ 'Frontal-Mid-L' & 146.89 & 235\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$ 'Caudate-R' & 108.27 & 207\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$ 'Frontal-Sup-L' & 108.91 & 201\\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$ 'Temporal-Sup-L' & 114.28 & 172\\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$ 'Precuneus-R' & 173.9 & 149\\
+\hline
+'Insula-L'$\leftrightarrow$ 'Postcentral-R' & 116.55 & 84\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$ 'Cingulum-Ant-L' & 108.47 & 73\\
+\hline
+'Frontal-Sup-Medial-R'$\leftrightarrow$ 'Cingulum-Mid-L' & 134.99	& 66\\
+\hline
+'Cingulum-Post-L'$\leftrightarrow$ 'Postcentral-R' & 74.55 & 63\\
+\hline
+'Supp-Motor-Area-L'$\leftrightarrow$ 'SupraMarginal-L'& 151.46 & 55\\
+\hline
+'Frontal-Sup-L'$\leftrightarrow$ 'ParahippocampaGyrus' & 13.11 & 51\\
+\hline
+'Caudate-R'$\leftrightarrow$ 'Paracentral-Lobule-R'& 27.21	& 51\\
+\hline
+'Frontal-Sup-Medial-R'$\leftrightarrow$ 'Frontal-Inf-Tri-L'& 134.23 & 46\\
+\hline
+'Insula-L'$\leftrightarrow$ 'Paracentral-Lobule-R'& 116.21 &	45\\
+\hline
+'Cingulum-Post-L'$\leftrightarrow$ 'Paracentral-Lobule-R'& 74.21 &	43\\
+\hline
+'Parietal-Sup-R'$\leftrightarrow$ 'Cuneus-L'& 184.58 & 37\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$ 'Frontal-Sup-R'& 189.173 &	37\\
+\hline
+'Parietal-Inf-L'$\leftrightarrow$ 'Caudate-Head-L'& 169.49 &	34\\
+\hline
+'Frontal-Sup-Medial-L'$\leftrightarrow$ 'Frontal-Inf-Tri-L'& 124.23 &	28\\
+\hline
+'Insula-R'$\leftrightarrow$ 'Pallidum-R'& 129.40 & 25\\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$ 'Putamen-L'& 114.6 & 23\\
+\hline
+'Insula-L'$\leftrightarrow$ 'Cingulum-Ant-L'& 116.47 & 23\\
+\hline
+'Caudate-Head-L'$\leftrightarrow$ 'Cingulum-Ant-L'& 49.47 & 21\\
+\hline
+'Frontal-Med-Or-R'$\leftrightarrow$ 'Frontal-Inf-Tri-L'& 138.23 &	20\\
+\hline
+'Vermis-4-5'$\leftrightarrow$ 'Frontal-Sup-Medial-L'& 126.124 &	18\\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$ 'Cingulum-Ant-L'& 173.47 &	13\\
+\hline
+'Cingulum-Mid-R'$\leftrightarrow$ 'Frontal-Sup-L'& 82.13 &	12\\
+\hline
+'Frontal-Med-Orb-R'$\leftrightarrow$ 'Frontal-Mid-R'& 138.107 &	9\\
+\hline
+'Rolandic-Oper-L'$\leftrightarrow$ 'Temporal-Inf-L'& 148.71 &	9\\
+\hline
+'Lingual-L'$\leftrightarrow$ 'Frontal-Sup-L'& 85.13 &	8\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$ 'Frontal-Mid-L'& 112.67	& 7\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$ 'Cingulum-Mid-L'& 189.65 &	7\\
+\hline
+'Cingulum-Ant-L'$\leftrightarrow$ 'Precuneu-R'& 47.9 &	5\\
+\hline
+'Pallidum-R'$\leftrightarrow$ 'Temporal-Mid-R'& 40.19 &	3\\
+\hline
+'Caudate-Head-L'$\leftrightarrow$ 'Precuneus-R'& 49.9 &	3\\
+\hline
+'Cingulum-Ant-L'$\leftrightarrow$ 'Caudate-R'& 47.27 &	1\\
+\hline
+'Temporal-Inf-L'$\leftrightarrow$ 'Lingual-L'& 132.85	& 1\\
+\hline
+'Temporal-Sup-L'$\leftrightarrow$ 'Temporal-Mid-L'& 135.114 &	1\\
+\hline
+'Vermis-6'$\leftrightarrow$ 'Temporal-Inf-L'& 136.132 &	1\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$ 'Paracentral-Lobule-R'& 189.21 & 1\\
+\hline
+\end{tabular}
+\end{table}
 
+There are a total of 381 models of dimensions 9 to 20. The table below shows the frequency of each feature selected. The most frequent features are 'Insula_R' \(\leftrightarrow\) 'Paracentral-Lobule-R', 'Frontal-Sup-R' \(\leftrightarrow\) 'Frontal-Mid-R', 'Temporal-Mid-L' \(\leftrightarrow\) 'Lingual-L' and 'Insula-L' \(\leftrightarrow\) 'Frontal-Mid-L',  which are contained by every model.
 
-## Loading the SWAG SVM Linear results
+\newpage
+
 
 ```{r message=FALSE, warning=FALSE}
+## Loading the SWAG SVM Linear results
 load("SVMLinear_Results.Rda")
 ```
+
+```{r message=FALSE, warning=FALSE}
+## Post-processing
+min_error = min(train_swag_svml$cv_alpha)
+
+
+varmat_ind = list() #saves the varmat index from CV errors
+for(i in 1:20){
+  varmat_ind[[i]]=which(train_swag_svml$CVs[[i]]<=min_error, arr.ind = T)
+}
+
+post_sel = list() # models selected after post-processing
+for(i in 1:20){
+  post_sel[[i]] = train_swag_svml$VarMat[[i]][,varmat_ind[[i]]]
+}
+
+post_sel[[1]] = t(as.matrix(post_sel[[1]]))
+
+for(i in 1:20){
+  if(!is.matrix(post_sel[[i]])){
+    post_sel[[i]]=t(as.matrix(post_sel[[i]]))
+  }
+}
+
+post_sel[[9]] = t(post_sel[[9]])
+
+
+x = c() #non-empty elements of post-group
+for(i in 1:20){
+  if(length(post_sel[[i]])!=0){
+    x = c(x,i)
+  }
+  x = x
+}
+
+for(i in 1:length(x)){
+  if(nrow(post_sel[[x[i]]])<20){
+    diff = 20 - nrow(post_sel[[x[i]]])
+    post_sel[[x[i]]] = rbind(post_sel[[x[i]]],matrix(NA,nrow = diff, ncol = ncol(post_sel[[x[i]]])))
+  } 
+}
+
+
+models = matrix(NA, nrow = 20,ncol=ncol(post_sel[[x[1]]]))
+
+models[1:nrow(post_sel[[x[1]]]),]=post_sel[[x[1]]]
+
+for(i in 2:length(x)){
+  models = cbind(models,post_sel[[x[i]]])
+}
+
+models = t(models)
+
+selected_var = c() 
+for(i in 1:ncol(models)){
+  selected_var = c(selected_var,models[,i])
+}
+selected_var = na.omit(unique(selected_var))
+selected_var = sort(selected_var)
+#colnames(x_train)[selected_var]
+#table(models)
+
+freq = table(models)
+variable = colnames(x_train)[selected_var]
+
+freq_table = cbind(variable,freq)
+rownames(freq_table) = c(1:nrow(freq_table))
+freq_table = as.data.frame(freq_table)
+freq_table$freq = as.numeric(freq_table$freq)
+
+#freq_table
+```
+
+
+```{r message=FALSE, warning=FALSE}
+require(plotrix)
+
+m_vector <- sapply(train_swag_svml$CVs, function(x) summary(x)[4])
+
+l_vector <- sapply(train_swag_svml$CVs, function(x) summary(x)[1])
+
+u_vector <- sapply(train_swag_svml$CVs, function(x) summary(x)[6])
+
+plotCI(1:length(train_swag_svml$CVs), m_vector, ui=u_vector, li=l_vector, scol = "grey", col="red", pch = 16, main = "Ranges 10-fold CV Misclassification Errors",ylab = "Range CV Error",xlab = "Model Size")
+```
+
+The plot shows the range of CV errors for each dimension.
 
 ## FREQUENCY TABLE
 
@@ -258,46 +412,45 @@ In the post-processing, we took the minimum CV_alpha and selected all the models
 There are a total of 114 models of dimensions 18, 19, 20. "54,21", "91,85", "105,10", "121,68", "126,2", "135,105", "140,53", "150,114", "152,22", "154,112", "174,73" features are present in all the models. Below is the frequency table.
 
 \begin{table}
-\centering
-\begin{tabular}[t]{c|c}
+\begin{tabular}[t]{||c|c|c||}
 \hline
-Feature & Frequency \\
+Feature & Variable & Frequency \\
+\hline \hline
+'Insula-R'$\leftrightarrow$ 'Paracentral-Lobule-R'& 54.21 &	114 \\
 \hline
-14,6 &	5 \\
+'Frontal-Sup-L'$\leftrightarrow$ 'Lingual-L' & 91.85 & 114 \\
 \hline
-24,6 &	1 \\
+'Thalamus-L'$\leftrightarrow$ 'Frontal-Sup-Medial-L' & 105.10 & 114\\
 \hline
-54,21 &	114\\
+'Olfactory'$\leftrightarrow$ 'Frontal-Mid-R' & 121.68 &	114\\
 \hline
-58,38 &	4\\
+'Vermis-4-5'$\leftrightarrow$ 'Frontal-Sup-Orb-R' & 126.2 &	114\\
 \hline
-58,47 &	2\\
+'Temporal-Sup-L'$\leftrightarrow$ 'Thalamus-L' & 135.105 &	114\\
 \hline
-61,31 &	1\\
+'Parietal-Inf-R'$\leftrightarrow$ 'Precentral-R' & 140.53 &	114\\
 \hline
-61,35 &	6\\
+'Vermis-1-2'$\leftrightarrow$ 'Temporal-Mid-L'& 150.114	& 114\\
 \hline
-62,10	& 8\\
+'Angular-R'$\leftrightarrow$ 'Fusiform-L'& 152.22 & 114\\
 \hline
-69,15	& 1\\
+'Fusiform-R'$\leftrightarrow$ 'Cingulum-Ant-R' & 154.112	& 114\\
 \hline
-70,14	& 66\\
+'Cerebelum-6-L'$\leftrightarrow$ 'Cerebelum-Crus2-L' & 174.73	& 114\\
 \hline
-72,6	& 12\\
+'Parietal-Inf-L'$\leftrightarrow$ 'Temporal-Pole-Mid-L'& 183.12	& 106\\
 \hline
-77,4	& 9\\
+'Thalamus-L'$\leftrightarrow$'Frontal-Sup-L' & 105.91	& 71\\
 \hline
-77,19	& 2\\
+'Vermis-1-2'$\leftrightarrow$'Pallidum-R' & 150.40	& 67\\
 \hline
-78,58	& 40\\
+'Cuneus-R'$\leftrightarrow$'Frontal-Inf-Orb-L' & 70.14	& 66\\
 \hline
-79,13	& 7\\
+'Frontal-Sup-Medial-L'$\leftrightarrow$'Precentral-L' & 130.80	& 66\\
 \hline
-80,77	& 12\\
+'Frontal-Mid-R'$\leftrightarrow$'Cingulum-Ant-L' & 161.47 & 66\\
 \hline
-82,69	& 5\\
-\hline
-82,80	& 1\\
+'Parietal-Inf-L'$\leftrightarrow$'Fusiform-R' & 157.81	& 56\\
 \hline
 83,27	& 2\\
 \hline
