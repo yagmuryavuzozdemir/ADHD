@@ -40,7 +40,7 @@ x_train = predictors[-ind,]
 ## Loading the results of swag with svm radial
 ```{r message=FALSE, warning=FALSE}
 
-load("ADHD_svmradial.Rda")
+load("SVM_Radial_Results.Rda")
 
 ```
 

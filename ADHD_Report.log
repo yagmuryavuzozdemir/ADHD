@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.23)  29 JAN 2023 23:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.23)  1 FEB 2023 23:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -519,15 +519,15 @@ LaTeX Warning: Float too large for page by 21.56966pt on input line 333.
 
 LaTeX Warning: Float too large for page by 71.16963pt on input line 455.
 
-[3] [4] [5] (./ADHD_Report.aux)
+[3] [4] [5] [6] [7] (./ADHD_Report.aux)
 Package rerunfilecheck Info: File `ADHD_Report.out' has not changed.
-(rerunfilecheck)             Checksum: 0E8193B2CC49B11E377024E555244F7B;531.
+(rerunfilecheck)             Checksum: 7337BBF5998872027B1B18A566B715D2;859.
  ) 
 Here is how much of TeX's memory you used:
- 9845 strings out of 480962
- 143445 string characters out of 5905990
- 491702 words of memory out of 5000000
- 26903 multiletter control sequences out of 15000+600000
+ 9855 strings out of 480962
+ 143599 string characters out of 5905990
+ 491793 words of memory out of 5000000
+ 26907 multiletter control sequences out of 15000+600000
  439723 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,9n,74p,278b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -538,10 +538,10 @@ m/lmbx12.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
 lic/lm/lmr10.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 /public/lm/lmr17.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
 ype1/public/lm/lmsy10.pfb>
-Output written on ADHD_Report.pdf (5 pages, 98837 bytes).
+Output written on ADHD_Report.pdf (7 pages, 103220 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
- 53 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
+ 18 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

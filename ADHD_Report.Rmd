@@ -390,3 +390,118 @@ Feature & Variable & Frequency \\
 \end{tabular}
 \end{table}
 
+\newpage
+
+## SVM Radial Analysis using SWAG
+
+## FREQUENCY TABLE
+
+\begin{table}
+\begin{tabular}[t]{||c|c|c||}
+\hline
+Feature & Variable & Frequency \\
+\hline \hline
+'Frontal-Sup-L'$\leftrightarrow$'ParahippocampaGyrus' & 13.11 & 146\\
+\hline
+'Temporal-Inf-L'$\leftrightarrow$'Frontal-Sup-Medial-L' & 71.10 & 146\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$'Cingulum-Ant-L' & 108.47 & 146\\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$'Frontal-Inf-Orb-L' & 114.14 & 146\\
+\hline
+'Rolandic-Oper-L'$\leftrightarrow$'Insula-L' & 148.61 & 146\\
+\hline
+'Parietal-Inf-L'$\leftrightarrow$'Fusiform-R' & 157.81 & 146\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$'Supp-Motor-Area-L' & 189.151 & 146\\
+\hline
+'Cingulum-Ant-L'$\leftrightarrow$'Precuneus-R' & 47.9 & 142\\
+\hline
+'Frontal-Sup-L'$\leftrightarrow$'Lingual-L' & 91.85 & 142\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$'Frontal-Inf-Tri-L' & 108.23 & 142\\
+\hline
+'Fusiform-R'$\leftrightarrow$'Parietal-Sup-L' & 175.95 & 137\\
+\hline
+'Fusiform-R'$\leftrightarrow$'Frontal-Mid-L' & 154.69 & 136\\
+\hline
+'Frontal-Mid-R'$\leftrightarrow$'Frontal-Sup-Orb-R' & 107.2 & 135\\
+\hline
+'Temporal-Inf-L'$\leftrightarrow$'Lingual-R' & 132.4 & 133\\
+\hline
+'Pallidum-R'$\leftrightarrow$'Temporal-Mid-R' & 40.19 & 132\\
+\hline
+'Midbrain'$\leftrightarrow$'Frontal-Sup-L' & 165.13 & 132\\
+\hline
+'Cerebelum-Crus2-R'$\leftrightarrow$'Temporal-Pole-Sup-R' & 186.146 & 67\\
+\hline
+'Fusiform-R'$\leftrightarrow$'Frontal-Sup-L' & 175.13 & 53\\
+\hline
+'Frontal-Sup-L'$\leftrightarrow$'Putamen-L' & 13.6 & 49\\
+\hline
+'Frontal-Sup-L'$\leftrightarrow$'Frontal-Inf-Tri-L' & 91.23 & 44\\
+\hline
+'Precentral-R'$\leftrightarrow$'Precentral-R' & 93.53 & 40\\
+\hline
+'Vermis-9'$\leftrightarrow$'Temporal-Pole-Mid-R' & 113.44 & 31\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$'Insula-R' & 89.5 & 27\\
+\hline
+'Temporal-Pole-Sup-R'$\leftrightarrow$'Frontal-Med-Orb-R' & 146.138 & 27\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$'Vermis-4-5' & 189.126 & 26\\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$'Cingulum-Ant-L' & 173.47 & 25\\
+\hline
+'Frontal-Mid-L'$\leftrightarrow$'Cingulum-Ant-L' & 79.47 & 22\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$'Paracentral-Lobule-R' & 189.21 & 22\\
+\hline
+'Insula-L'$\leftrightarrow$'Cingulum-Ant-L' & 116.47 & 19\\
+\hline
+'Frontal-Sup-R'$\leftrightarrow$'ParahippocampaGyrus' & 72.11 & 14\\
+\hline
+'Lingual-L'$\leftrightarrow$'Frontal-Sup-L' & 85.13 & 14\\
+\hline
+'Frontal-Inf-Oper-L'$\leftrightarrow$'Frontal-Sup-L' & 170.91 & 14\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$'Precuneus-R' & 189.9 & 10\\
+\hline
+'Cingulum-Ant-R'$\leftrightarrow$'Caudate-Head-L' & 189.49 & 10\\
+\hline
+'Insula-L'$\leftrightarrow$'Cingulum-Mid-L' & 116.65 & 9\\
+\hline
+'Insula-L'$\leftrightarrow$'Frontal-Mid-L' & 116.89 & 9\\
+\hline
+'Cingulum-Ant-L'$\leftrightarrow$'Paracentral-Lobule-R' & 47.21 & 8\\
+\hline
+'Frontal-Inf-Orb-R'$\leftrightarrow$'Caudate-R' & 34.27 & 6\\
+\hline
+'Vermis-4-5'$\leftrightarrow$'Frontal-Sup-Orb-R' & 126.2 & 6\\
+\hline
+'Frontal-Sup-L'$\leftrightarrow$'Cerebelum-6-L' & 91.7 & 5\\
+\hline
+'Frontal-Sup-Medial-L'$\leftrightarrow$'Cingulum-Mid-L' & 124.99 & 5\\
+\hline
+'Rolandic-Oper-L'$\leftrightarrow$'Temporal-Mid-L' & 148.31 & 5\\
+\hline
+'Temporal-Inf-L'$\leftrightarrow$'Putamen-L' & 71.6 & 4\\
+\hline
+'Frontal-Sup-Medial-R'$\leftrightarrow$'Cingulum-Mid-L' & 134.99 & 4\\
+\hline
+'Precentral-L'$\leftrightarrow$'Cingulum-Ant-R' & 166.112 & 4\\
+\hline
+'Temporal-Mid-L'$\leftrightarrow$'Rolandic-Oper-L' & 179.167 & 3\\
+\hline
+'Fusiform-L'$\leftrightarrow$'Fusiform-R' & 143.123 & 1\\
+\hline 
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+
+
