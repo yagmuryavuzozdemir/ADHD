@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.23)  1 FEB 2023 23:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2021.3.23)  2 FEB 2023 14:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -500,34 +500,42 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
 (c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+<ADHD_Report_files/figure-latex/unnamed-chunk-1-1.pdf, id=24, 469.755pt x 325.2
+15pt>
+File: ADHD_Report_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type p
+df)
+<use ADHD_Report_files/figure-latex/unnamed-chunk-1-1.pdf>
+Package pdftex.def Info: ADHD_Report_files/figure-latex/unnamed-chunk-1-1.pdf  
+used on input line 79.
+(pdftex.def)             Requested size: 469.75386pt x 325.2142pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 81.
+(Font)              <10> on input line 83.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 81.
+(Font)              <7> on input line 83.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 81.
+(Font)              <5> on input line 83.
 
-LaTeX Warning: Float too large for page by 21.56966pt on input line 192.
+LaTeX Warning: Float too large for page by 21.56966pt on input line 194.
 
 [1
 
 {c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}] [2]
+x.map} <./ADHD_Report_files/figure-latex/unnamed-chunk-1-1.pdf>] [2]
 
-LaTeX Warning: Float too large for page by 21.56966pt on input line 333.
+LaTeX Warning: Float too large for page by 21.56966pt on input line 335.
 
 
-LaTeX Warning: Float too large for page by 71.16963pt on input line 455.
+LaTeX Warning: Float too large for page by 71.16963pt on input line 457.
 
 [3] [4] [5] [6] [7] (./ADHD_Report.aux)
 Package rerunfilecheck Info: File `ADHD_Report.out' has not changed.
 (rerunfilecheck)             Checksum: 7337BBF5998872027B1B18A566B715D2;859.
  ) 
 Here is how much of TeX's memory you used:
- 9855 strings out of 480962
- 143599 string characters out of 5905990
+ 9862 strings out of 480962
+ 143954 string characters out of 5905990
  491793 words of memory out of 5000000
- 26907 multiletter control sequences out of 15000+600000
+ 26912 multiletter control sequences out of 15000+600000
  439723 words of font info for 62 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,9n,74p,278b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -538,10 +546,10 @@ m/lmbx12.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
 lic/lm/lmr10.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
 /public/lm/lmr17.pfb><c:/Users/pnuka/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
 ype1/public/lm/lmsy10.pfb>
-Output written on ADHD_Report.pdf (7 pages, 103220 bytes).
+Output written on ADHD_Report.pdf (7 pages, 107521 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
- 72 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 76 compressed objects within 1 object stream
  18 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

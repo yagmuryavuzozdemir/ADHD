@@ -47,6 +47,7 @@ load("SVM_Radial_Results.Rda")
 
 ## Post-processing
 ```{r message=FALSE, warning=FALSE}
+library("writexl")
 min_error = min(train_swag_svmradial$cv_alpha)
 varmat_ind = list() #saves the varmat index from CV errors
 for(i in 1:20){
@@ -106,6 +107,8 @@ freq_table = cbind(variable,freq)
 rownames(freq_table) = c(1:nrow(freq_table))
 freq_table = as.data.frame(freq_table)
 freq_table$freq = as.numeric(freq_table$freq)
+as.data.frame(freq_table)
+write_xlsx(freq_table,"C:\\Users\\pnuka\\OneDrive\\Documents\\Fall 2022\\Research- Stat\\GitHub\\SVMRadialFT.xlsx")
 #freq_table
 ```
 

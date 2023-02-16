@@ -15,6 +15,7 @@ The plot shows the range of CV errors for each dimension. There is a clear decay
 library(png)
 img1_path <- "images/CV-plot-LogReg.png"
 img1 <- readPNG(img1_path, native = TRUE)
+plot(img1)
 ```
 
 
